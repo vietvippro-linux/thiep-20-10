@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thiệp 20/10 💖</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #ffeaf3, #ffd6e7);
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .text-line {
+      position: absolute;
+      font-size: 20px;
+      color: #b3005e;
+      opacity: 0;
+      transition: opacity 1s ease;
+      text-align: center;
+      width: 100%;
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255, 128, 170, 0.4);
+      font-size: 14px;
+      animation: float 4s ease-in infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) scale(0.8); opacity: 1; }
+      100% { transform: translateY(-250px) scale(1.4); opacity: 0; }
+    }
+
+    .envelope {
+      position: relative;
+      width: 320px;
+      height: 220px;
+      background: linear-gradient(145deg, #fff0f6, #ffd6e7);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(255,100,150,0.25);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transform: scale(0);
+      opacity: 0;
+      transition: all 1s ease;
+      z-index: 10;
+    }
+
+    .envelope.show {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .message {
+      font-size: 22px;
+      color: #b3005e;
+      text-align: center;
+      font-weight: bold;
+      display: none;
+    }
+
+    button {
+      padding: 10px 18px;
+      font-size: 18px;
+      color: white;
+      background-color: #ff66a3;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      position: absolute;
+      bottom: 60px;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 10;
+    }
+
+    button:hover {
+      background-color: #ff4081;
+    }
+
+    /* Nút nhạc */
+    #musicBtn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 20px;
+      background: #ff80b0;
+      color: white;
+      cursor: pointer;
+      z-index: 20;
+      box-shadow: 0 4px 8px rgba(255,100,150,0.3);
+      transition: background 0.3s;
+    }
+
+    #musicBtn:hover {
+      background: #ff4f91;
+    }
+  </style>
+</head>
+<body>
+  <div id="text1" class="text-line">Chúc các cô gái 20/10 luôn xinh đẹp và tươi tắn như nắng mai ☀️</div>
+  <div id="text2" class="text-line">Chúc các cậu lúc nào cũng vui vẻ, rạng rỡ như đóa hoa hồng 💐</div>
+  <div id="text3" class="text-line">Mong mỗi ngày các cậu luôn được yêu thương💖</div>
+  <div id="text4" class="text-line">Và... 🌸</div>
+  <div id="text5" class="text-line">Các cậu ơi</div>
+
+  <button id="openButton">Ấn để mở thiệp 💌</button>
+
+  <div class="envelope" id="envelope">
+    <div class="message">Hãy luôn nở nụ cười trên môi nhé 💞<br>— Chúc 20/10 thật hạnh phúc —</div>
+  </div>
+
+  <!-- Nút nhạc -->
+  <button id="musicBtn">🔊 Dừng nhạc</button>
+
+  <!-- Nhạc nền -->
+  <audio id="bgMusic" loop autoplay>
+    <source src="https://github.com/DTien1612/music/raw/main/music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // 🎵 Bật/tắt nhạc
+    const music = document.getElementById("bgMusic");
+    const btnMusic = document.getElementById("musicBtn");
+
+    btnMusic.onclick = () => {
+      if (music.paused) {
+        music.play();
+        btnMusic.textContent = "🔊 Dừng nhạc";
+      } else {
+        music.pause();
+        btnMusic.textContent = "🎵 Phát nhạc";
+      }
+    };
+
+    // 💌 Hiệu ứng text xuất hiện lần lượt
+    const texts = ["text1","text2","text3","text4","text5"];
+    let delay = 0;
+
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.textContent = '💖';
+      heart.style.left = Math.random() * 100 + '%';
+      heart.style.bottom = '-10px';
+      heart.style.fontSize = (10 + Math.random() * 10) + 'px';
+      heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }, 150);
+
+    texts.forEach((id) => {
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        el.style.opacity = 1;
+        setTimeout(() => { el.style.opacity = 0; }, 2500);
+      }, delay);
+      delay += 3000;
+    });
+
+    setTimeout(() => {
+      const btn = document.getElementById('openButton');
+      btn.style.opacity = 1;
+    }, delay);
+
+    document.getElementById('openButton').addEventListener('click', () => {
+      const btn = document.getElementById('openButton');
+      btn.style.display = 'none';
+
+      // Tim bay khi mở
+      for (let i = 0; i < 40; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.className = 'heart';
+          heart.textContent = '💖';
+          heart.style.left = Math.random() * 100 + '%';
+          heart.style.bottom = '-10px';
+          heart.style.fontSize = (8 + Math.random() * 10) + 'px';
+          heart.style.animationDuration = (2 + Math.random() * 3) + 's';
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 5000);
+        }, i * 80);
+      }
+
+      setTimeout(() => {
+        const env = document.getElementById('envelope');
+        env.classList.add('show');
+        setTimeout(() => {
+          env.querySelector('.message').style.display = 'block';
+        }, 1200);
+      }, 1800);
+    });
+  </script>
+</body>
+</html>
